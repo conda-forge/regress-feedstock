@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/regress-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/regress-{{ version }}.tar.gz
   sha256: f029ac1c6fe6facdc99700b0169cfe5fb0bd7e5e373a1299fe5084af6982b983
 
 build:
