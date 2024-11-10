@@ -1,20 +1,20 @@
 {% set name = "regress" %}
-{% set version = "2024.8.1" %}
+{% set version = "2024.11.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/regress-{{ version }}.tar.gz
-  sha256: 4984db8f752a6fd8d954c3c92c091dae6245409b4f0f97366372d13f12839742
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/regress-{{ version }}.tar.gz
+  sha256: f029ac1c6fe6facdc99700b0169cfe5fb0bd7e5e373a1299fe5084af6982b983
 
 build:
   skip: true  # [py<38]
   script:
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
-  number: 2
+  number: 0
 
 requirements:
   build:
