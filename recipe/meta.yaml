@@ -1,5 +1,5 @@
 {% set name = "regress" %}
-{% set version = "2025.5.1" %}
+{% set version = "2025.10.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,14 +7,14 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/regress-{{ version }}.tar.gz
-  sha256: bb372b76ea6a50935128f065eca4fe6649ec446f0ecf9d73ac0cd19b68acadc7
+  sha256: dcc0a8af0cdbc3d6e0d4725f113335d0a5ffbba86ae3ca18d2b5b352c5f2c8ed
 
 build:
   skip: true  # [py<39]
   script:
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
-  number: 1
+  number: 0
 
 requirements:
   build:
