@@ -1,0 +1,56 @@
+schema_version: 1
+
+context:
+  name: regress
+  version: "2026.9.1"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://files.pythonhosted.org/packages/source/${{ name[0] }}/${{ name }}/regress-${{ version }}.tar.gz
+  sha256: e7b547386bf97b82a23e62471272742492c0b2de62cf0ee98247fd37cc42f169
+
+build:
+  number: 0
+  script:
+    - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+    - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
+
+requirements:
+  build:
+    - if: build_platform != target_platform
+      then: python
+    - if: build_platform != target_platform
+      then: cross-python_${{ target_platform }}
+    - if: build_platform != target_platform
+      then: maturin >=1.0,<2
+    - ${{ compiler('c') }}
+    - ${{ stdlib('c') }}
+    - ${{ compiler('rust') }}
+    - cargo-bundle-licenses
+  host:
+    - python
+    - maturin >=1.2,<2.0
+    - pip
+  run:
+    - python
+
+tests:
+  - python:
+      imports:
+        - regress
+      pip_check: true
+
+about:
+  summary: Python bindings to Rust's regress ECMA regular expressions library
+  license: MIT
+  license_file:
+    - LICENSE
+    - THIRDPARTY.yml
+  homepage: https://github.com/crate-py/regress
+
+extra:
+  recipe-maintainers:
+    - freundTech
